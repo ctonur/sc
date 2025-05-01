@@ -49,7 +49,15 @@ else
   git clone "$repo_url"
   cd atex
 fi
-log "Git status: branch $(git rev-parse --abbrev-ref HEAD), commit $(git rev-parse HEAD)"
+
+# Enter project subdirectory where package.json resides
+if [ -d "project" ]; then
+  cd project
+  log "Entered project directory: $(pwd)"
+else
+  log "Error: 'project' directory not found in repository root."
+  exit 1
+fi
 
 # 4. Install dependencies and build
 log "Installing npm dependencies..."
